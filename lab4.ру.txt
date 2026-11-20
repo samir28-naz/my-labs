@@ -1,0 +1,33 @@
+# Лабораторная работа №4. Вариант 1: Статистика массива
+print("--- Статистика массива из 10 чисел ---")
+
+# Создаем пустой список (массив)
+numbers = []
+
+# Заполняем массив с клавиатуры (цикл на 10 чисел)
+print("Введите 10 чисел:")
+for i in range(10):
+    try:
+        num = float(input(f"Число {i+1}: "))
+        numbers.append(num)
+    except ValueError:
+        print("Ошибка: нужно вводить числа! Программа остановлена.")
+        exit() # Выходим из программы, если ввели букву
+
+# Обработка массива (встроенные функции Python)
+sum_numbers = sum(numbers)
+average = sum_numbers / len(numbers)
+min_number = min(numbers)
+max_number = max(numbers)
+
+# Находим индексы минимального и максимального элементов
+# Метод .index() ищет позицию элемента (индексация начинается с 0)
+index_min = numbers.index(min_number)
+index_max = numbers.index(max_number)
+
+# Вывод результатов
+print("\n--- Результаты ---")
+print(f"Сумма элементов: {sum_numbers}")
+print(f"Среднее арифметическое: {average}")
+print(f"Минимальный элемент: {min_number} (индекс: {index_min})")
+print(f"Максимальный элемент: {max_number} (индекс: {index_max})")
