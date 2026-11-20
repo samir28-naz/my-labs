@@ -1,0 +1,17 @@
+print("--- Анализ текста (слова) ---")
+text = input("Введите текст: ")
+
+if not text.strip():
+    print("Ошибка: вы ввели пустую строку!")
+else:
+    words = text.split()
+    if len(words) == 0:
+         print("Слов не найдено.")
+    else:
+        count = len(words)
+        longest_word = max(words, key=len)
+        shortest_word = min(words, key=len)
+        
+        print("\nКоличество слов:", count)
+        print("Самое длинное слово:", longest_word, "(длина", len(longest_word), ")")
+        print("Самое короткое слово:", shortest_word, "(длина", len(shortest_word), ")")
