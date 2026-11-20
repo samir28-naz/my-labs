@@ -1,0 +1,72 @@
+from abc import ABC, abstractmethod
+
+# Базовый абстрактный класс
+class Vehicle(ABC):
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    # Абстрактный метод (обязателен для всех наследников)
+    @abstractmethod
+    def fuel_consumption(self):
+        pass
+
+    # Обычный метод, который можно переопределить
+    def info(self):
+        return f"Транспорт: {self.brand} {self.model}"
+
+# Класс-наследник: Легковая машина
+class Car(Vehicle):
+    def __init__(self, brand, model, fuel_per_100km):
+        super().__init__(brand, model) # Вызов конструктора родителя
+        self.fuel_per_100km = fuel_per_100km
+
+    def info(self):
+        # Переопределяем метод (добавляем свои данные)
+        return f"Легковой автомобиль: {self.brand} {self.model}"
+
+    def fuel_consumption(self):
+        return f"Расход топлива: {self.fuel_per_100km} л/100км"
+
+# Класс-наследник: Грузовик
+class Truck(Vehicle):
+    def __init__(self, brand, model, load_capacity):
+        super().__init__(brand, model)
+        self.load_capacity = load_capacity
+
+    def info(self):
+        return f"Грузовик: {self.brand} {self.model} (Грузоподъемность: {self.load_capacity} т)"
+
+    def fuel_consumption(self):
+        # Грузовики тратят больше, вычисляем по формуле для примера
+        consumption = 20.0 + (self.load_capacity * 2)
+        return f"Расход топлива: {consumption} л/100км"
+
+# Класс-наследник: Мотоцикл
+class Motorcycle(Vehicle):
+    def __init__(self, brand, model, engine_volume):
+        super().__init__(brand, model)
+        self.engine_volume = engine_volume
+
+    def info(self):
+        return f"Мотоцикл: {self.brand} {self.model} (Объем двигателя: {self.engine_volume} куб.см)"
+
+    def fuel_consumption(self):
+        return "Расход топлива: 4.5 л/100км"
+
+# --- Проверка работы ---
+print("--- Лабораторная работа №8 (Вариант 1: Транспорт) ---")
+
+# Создаем объекты разных классов
+car = Car("Toyota", "Camry", 8.5)
+truck = Truck("Volvo", "FH16", 20)
+moto = Motorcycle("Yamaha", "YZF-R1", 1000)
+
+# Полиморфизм: складываем все объекты в один список и вызываем одинаковые методы
+vehicles = [car, truck, moto]
+
+print("\n--- Информация о транспорте ---")
+for v in vehicles:
+    print(v.info())  # Вызывается переопределенный метод
+    print(v.fuel_consumption())
+    print("-" * 30)

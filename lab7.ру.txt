@@ -1,0 +1,54 @@
+class Book:
+    def __init__(self, title, author, year, price):
+        self.title = title
+        self.author = author
+        self.year = year
+        self.__price = price  # Приватное поле (инкапсуляция)
+
+    # Свойство для получения цены (геттер)
+    @property
+    def price(self):
+        return self.__price
+
+    # Метод для применения скидки
+    def apply_discount(self, percent):
+        if 0 <= percent <= 100:
+            discount_amount = self.__price * (percent / 100)
+            self.__price -= discount_amount
+            print(f"Скидка {percent}% применена. Новая цена: {self.__price:.2f} руб.")
+        else:
+            print("Ошибка: скидка должна быть от 0 до 100%")
+
+    # Метод для сравнения книг по цене
+    def is_more_expensive(self, other_book):
+        return self.__price > other_book.price
+
+    # Метод для красивого вывода информации
+    def display_info(self):
+        print(f"Книга: '{self.title}', Автор: {self.author}, Год: {self.year}, Цена: {self.__price:.2f} руб.")
+
+# --- Проверка работы класса ---
+print("--- Лабораторная работа №7 (Вариант 1: Book) ---")
+
+# Создаем две книги (объекты)
+book1 = Book("Война и мир", "Л.Н. Толстой", 1869, 1500.0)
+book2 = Book("Преступление и наказание", "Ф.М. Достоевский", 1866, 1200.0)
+
+print("\nИсходные данные:")
+book1.display_info()
+book2.display_info()
+
+# Применяем скидку к первой книге
+print("\nПрименяем скидку 10% к первой книге:")
+book1.apply_discount(10)
+
+# Сравниваем книги
+print("\nСравнение цен:")
+if book1.is_more_expensive(book2):
+    print(f"'{book1.title}' дороже, чем '{book2.title}'")
+else:
+    print(f"'{book2.title}' дороже, чем '{book1.title}'")
+
+# Попробуем применить некорректную скидку (проверка на ошибку)
+print("\nПроверка на ошибку (скидка 150%):")
+book1.apply_discount(150)
